@@ -1,19 +1,63 @@
 micronaut:
-  application:
-    name: mn
   server:
-    port: 8081
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedOrigins:
+            - '*'
+          allowedHeaders:
+            - Content-type
+            - Authorization
+          allowedMethods:
+            - POST
+            - PUT
+            - GET
+            - DELETE
+  application:
+    name: api
+  security:
+    enabled: true
+    endpoints:
+      login:
+        enabled: true
+      oauth:
+        enabled: true
+    token:
+      jwt:
+        enabled: true
+        signatures:
+          secret:
+            generator:
+              secret: naoseiquequeeuvootaaquimaiquiinfernoessecagulotemquesermuitogrande
 
----
+rabbitmq:
+  uri: amqp://localhost8080
+
 datasources:
   default:
-    url: jdbc:postgresql://localhost:26257/usertest
+    url: jdbc:postgresql://localhost:5432/test
     driverClassName: org.postgresql.Driver
-    username: root
+    username: postgres
     password: ''
+    schema-generate: CREATE_DROP
+    dialect: MYSQL
 jpa:
   default:
     properties:
       hibernate:
+        bytecode:
+          provider: none
         hbm2ddl:
           auto: update
+---
+eureka:
+  client:
+    registration:
+      enabled: true
+    defaultZone: "${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}"
+---
+endpoints:
+  health:
+    enabled: true
+    details-visible: ANONYMOUS
