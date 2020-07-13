@@ -1,5 +1,6 @@
 package api.test.controller;
 import api.test.service.UserService;
+import api.test.model.User;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
